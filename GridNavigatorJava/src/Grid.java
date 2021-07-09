@@ -41,5 +41,30 @@ public class Grid {
 		grid[start[0]][start[1]] = 2;
 		grid[goal[0]][goal[1]] = 3;
 	}
+
+	public void gridBFS() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void gridBidirectional() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void gridManhattan() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void gridHFive() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void gridOwnHeuristic() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
