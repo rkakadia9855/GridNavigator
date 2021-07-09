@@ -44,14 +44,14 @@ public class Grid {
 		String temp[] = gridToText.split("[\r]?\n");
 		for(int i = 0; i < temp.length; i++) {
 			try	(Scanner scn = new Scanner(temp[i])) {
-				int x = scn.nextInt();
-				int y = scn.nextInt();
+				int x = scn.nextInt(); //column of an array
+				int y = scn.nextInt(); //row of an array
 				int val = scn.nextInt();
-				grid[x][y] = val;
+				grid[y][x] = val;
 			}
 		}
-		grid[start.getX()][start.getY()] = 2;
-		grid[goal.getX()][goal.getY()] = 3;
+		grid[start.getY()][start.getX()] = 2;
+		grid[goal.getY()][goal.getX()] = 3;
 	}
 	
 	public boolean validNode(GridNode aNode) {

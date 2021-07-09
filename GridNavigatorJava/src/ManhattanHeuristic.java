@@ -19,18 +19,18 @@ public class ManhattanHeuristic {
 		while(!frontier.isEmpty()) {
 			GridNode tracker = frontier.remove();
 			
-			if(manhattanGrid[tracker.getX()][tracker.getY()] == 4
+			if(manhattanGrid[tracker.getY()][tracker.getX()] == 4
 					|| manhattanGrid[tracker.getX()][tracker.getY()] == 1)
 				continue;
 			
-			if(manhattanGrid[tracker.getX()][tracker.getY()] == 3)
+			if(manhattanGrid[tracker.getY()][tracker.getX()] == 3)
 				return manhattanGrid;
 			for (int[] direction : DIRECTIONS) {
 				GridNode temp = new GridNode(tracker.getX() + direction[0], tracker.getY() + direction[1]);
 				if(builtGrid.validNode(temp)) {
 					frontier.add(temp);
 				}
-				manhattanGrid[tracker.getX()][tracker.getY()] = 4;
+				manhattanGrid[tracker.getY()][tracker.getX()] = 4;
 			}
 		}
 		return null;
