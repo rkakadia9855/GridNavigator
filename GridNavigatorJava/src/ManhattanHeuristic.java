@@ -30,7 +30,8 @@ public class ManhattanHeuristic {
 				if(builtGrid.validNode(temp)) {
 					frontier.add(temp);
 				}
-				manhattanGrid[tracker.getY()][tracker.getX()] = 4;
+				if(!(start.getX() == tracker.getX() && start.getY() == tracker.getY()))
+					manhattanGrid[tracker.getY()][tracker.getX()] = 4;
 			}
 		}
 		return null;
