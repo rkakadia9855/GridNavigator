@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Grid {
@@ -10,8 +11,8 @@ public class Grid {
 	// 3 - represents the ending point
 	// 4 - represents the free space used in the path
 	private int[][] grid;
-	private int[] start;
-	private int[] goal;
+	private GridNode start;
+	private GridNode goal;
 	private int mazeSize;
 	
 	private static final String ANSI_RESET = "\u001B[0m";
@@ -23,9 +24,13 @@ public class Grid {
 
 	public Grid(File gridFile, int mazeSize, int[] start, int[] goal) throws FileNotFoundException {
 		this.mazeSize = mazeSize;
-		this.start = start;
-		this.goal = goal;
+		this.goal = new GridNode(goal[0], goal[1]);
+		this.start = new GridNode(start[0], start[1]);
 		buildGrid(gridFile);
+	}
+	
+	public int[][] getGrid() {
+		return this.grid;
 	}
 	
 	private void buildGrid(File gridFile) throws FileNotFoundException {
@@ -45,60 +50,24 @@ public class Grid {
 				grid[x][y] = val;
 			}
 		}
-		grid[start[0]][start[1]] = 2;
-		System.out.println("Start is "+start[0]+", "+start[1]+" and grid num is "+grid[start[0]][start[1]]);
-		grid[goal[0]][goal[1]] = 3;
-		System.out.println("Goal is "+goal[0]+", "+goal[1]+" and grid num is "+grid[goal[0]][goal[1]]);
+		grid[start.getX()][start.getY()] = 2;
+		grid[goal.getX()][goal.getY()] = 3;
 	}
-
-	public void gridBFS() {
-		// TODO Auto-generated method stub
-		
+	
+	public boolean validNode(GridNode aNode) {
+		if(aNode.getX() >= 0 && aNode.getX() < mazeSize
+				&&
+		   aNode.getY() >= 0 && aNode.getY() < mazeSize)
+			return true;
+		return false;
 	}
-
-	public void gridBidirectional() {
-		// TODO Auto-generated method stub
-		
+	
+	public GridNode getStart() {
+		return this.start;
 	}
-
-	public void gridManhattan() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void gridHFive() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void gridOwnHeuristic() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void display() {
-		for(int i = 0; i < mazeSize; i++) {
-			for(int j = 0; j < mazeSize; j++) {
-				/*switch(grid[i][j]) {
-					case 1:
-						System.out.print(BLOCK + grid[i][j] + " " + ANSI_RESET);
-						break;
-					case 2:
-						System.out.print(START + grid[i][j] + " " + ANSI_RESET);
-						break;
-					case 3:
-						System.out.print(GOAL + grid[i][j] + " " + ANSI_RESET);
-						break;
-					case 4:
-						System.out.print(PATH + grid[i][j] + " " + ANSI_RESET);
-						break;
-					default:
-						System.out.print(ROAD + grid[i][j] + " " + ANSI_RESET); 
-				} */
-				System.out.print(grid[i][j] + " ");
-			}
-			System.out.println();
-		} 
+	
+	public GridNode getGoal() {
+		return this.goal;
 	}
 	
 }

@@ -35,29 +35,39 @@ public class GridDriver {
 	
 	private static void navigateGrid(File gridFile, int mazeSize, int[] start, int[] goal, int algoIndex) throws FileNotFoundException {
 		Grid problemGrid = new Grid(gridFile, mazeSize, start, goal);
+		int[][] solvedGrid;
 		// add a switch statement to call the appropriate algo
 		switch(algoIndex) {
 			case 0:
-				problemGrid.gridBFS();
+				ManhattanHeuristic bfs = new ManhattanHeuristic(problemGrid);
+				solvedGrid = bfs.solveMaze();
+				bfs.printGrid();
 				break;
 			case 1:
-				problemGrid.gridBidirectional();
+				ManhattanHeuristic dfs = new ManhattanHeuristic(problemGrid);
+				solvedGrid = dfs.solveMaze();
+				dfs.printGrid();
 				break;
 			case 2: 
-				problemGrid.gridManhattan();
+				ManhattanHeuristic manhattan = new ManhattanHeuristic(problemGrid);
+				solvedGrid = manhattan.solveMaze();
+				manhattan.printGrid();
 				break;
 			case 3: 
-				problemGrid.gridHFive();
+				ManhattanHeuristic otherHeur = new ManhattanHeuristic(problemGrid);
+				solvedGrid = otherHeur.solveMaze();
+				otherHeur.printGrid();
 				break;
 			case 4:
-				problemGrid.gridOwnHeuristic();
+				ManhattanHeuristic ownHeur = new ManhattanHeuristic(problemGrid);
+				solvedGrid = ownHeur.solveMaze();
+				ownHeur.printGrid();
 				break;
 			default:
 				System.out.println("Invalid maze algorithm provided: "+algoIndex);
 				
-		}
-		
-		problemGrid.display();
+		} 
+	
 	}
 
 }
