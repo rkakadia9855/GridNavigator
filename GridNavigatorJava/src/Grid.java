@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Grid {
@@ -14,13 +13,6 @@ public class Grid {
 	private GridNode start;
 	private GridNode goal;
 	private int mazeSize;
-	
-	private static final String ANSI_RESET = "\u001B[0m";
-	private static final String START = "\u001B[31m";
-	private static final String GOAL = "\u001B[32m";
-	private static final String PATH = "\u001B[33m";
-	private static final String BLOCK = "\u001B[35m";
-	public static final String ROAD = "\u001B[30m";
 
 	public Grid(File gridFile, int mazeSize, int[] start, int[] goal) throws FileNotFoundException {
 		this.mazeSize = mazeSize;
@@ -44,14 +36,14 @@ public class Grid {
 		String temp[] = gridToText.split("[\r]?\n");
 		for(int i = 0; i < temp.length; i++) {
 			try	(Scanner scn = new Scanner(temp[i])) {
-				int x = scn.nextInt(); //column of an array
-				int y = scn.nextInt(); //row of an array
+				int x = scn.nextInt(); //row of an array
+				int y = scn.nextInt(); //column of an array
 				int val = scn.nextInt();
-				grid[y][x] = val;
+				grid[x][y] = val;
 			}
 		}
-		grid[start.getY()][start.getX()] = 2;
-		grid[goal.getY()][goal.getX()] = 3;
+		grid[start.getX()][start.getY()] = 2;
+		grid[goal.getX()][goal.getY()] = 3;
 	}
 	
 	public boolean validNode(GridNode aNode) {

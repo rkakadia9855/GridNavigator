@@ -29,6 +29,8 @@ public class GridDriver {
 		String gridFileName = "maze_"+gridNumber+".txt";
 		File gridFile = new File("src/resources/mazes/"+gridFileName);
 		navigateGrid(gridFile, mazeSize, start, goal, algoIndex);
+//		File gridFile = new File("src/resources/example_9x9.txt");
+//		navigateGrid(gridFile, 9, new int[] {1, 0}, new int[] {8,7}, 3);
 		
 		//Now time to run all the algorithms in 50 different environments
 	}
@@ -54,9 +56,9 @@ public class GridDriver {
 				manhattan.printGrid();
 				break;
 			case 3: 
-				ManhattanHeuristic otherHeur = new ManhattanHeuristic(problemGrid);
-				solvedGrid = otherHeur.solveMaze();
-				otherHeur.printGrid();
+				HeuristicFive maxHeur = new HeuristicFive(problemGrid);
+				solvedGrid = maxHeur.solveMaze();
+				maxHeur.printGrid();
 				break;
 			case 4:
 				ManhattanHeuristic ownHeur = new ManhattanHeuristic(problemGrid);
