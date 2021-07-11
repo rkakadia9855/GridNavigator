@@ -27,10 +27,10 @@ public class GridDriver {
 		}
 		
 		String gridFileName = "maze_"+gridNumber+".txt";
-		File gridFile = new File("src/resources/mazes/"+gridFileName);
-		navigateGrid(gridFile, mazeSize, start, goal, algoIndex);
-//		File gridFile = new File("src/resources/example_9x9.txt");
-//		navigateGrid(gridFile, 9, new int[] {1, 0}, new int[] {8,7}, 3);
+//		File gridFile = new File("src/resources/mazes/"+gridFileName);
+//		navigateGrid(gridFile, mazeSize, start, goal, algoIndex);
+		File gridFile = new File("src/resources/example_9x9.txt");
+		navigateGrid(gridFile, 9, new int[] {1, 0}, new int[] {8,7}, 3);
 		
 		//Now time to run all the algorithms in 50 different environments
 	}
@@ -41,14 +41,12 @@ public class GridDriver {
 		// add a switch statement to call the appropriate algo
 		switch(algoIndex) {
 			case 0:
-				ManhattanHeuristic bfs = new ManhattanHeuristic(problemGrid);
-				solvedGrid = bfs.solveMaze();
-				bfs.printGrid();
+				BFS bfs = new BFS();
+				solvedGrid = bfs.BFSPath(problemGrid);
 				break;
 			case 1:
-				ManhattanHeuristic dfs = new ManhattanHeuristic(problemGrid);
-				solvedGrid = dfs.solveMaze();
-				dfs.printGrid();
+				DFSLimit dfs = new DFSLimit();
+				solvedGrid = dfs.DFSPath(problemGrid);
 				break;
 			case 2: 
 				ManhattanHeuristic manhattan = new ManhattanHeuristic(problemGrid);
