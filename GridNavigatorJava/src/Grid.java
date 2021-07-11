@@ -61,5 +61,9 @@ public class Grid {
 	public GridNode getGoal() {
 		return this.goal;
 	}
+
+	public int getSize() {
+		return this.grid.length;
+	}
 	
 }
