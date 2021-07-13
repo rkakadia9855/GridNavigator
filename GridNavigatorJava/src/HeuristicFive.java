@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -8,6 +7,8 @@ public class HeuristicFive {
 	int[][] heuristicGrid;
 	int[][] visited;
 	Grid builtGrid;
+	int costOfPath = 0;
+	int numNodesExpanded = 1;
 	
 	public HeuristicFive(Grid builtGrid) {
 		this.builtGrid = builtGrid;
@@ -35,8 +36,11 @@ public class HeuristicFive {
 				continue;
 			
 			if(heuristicGrid[tracker.getX()][tracker.getY()] == 3) {
-				ArrayList<GridNode> temp = new ArrayList<GridNode>();
 				GridNode tempTracker = tracker.getCaller();
+				this.costOfPath = tempTracker.getCost();
+				if(tracker.getX() != 0)
+					this.costOfPath += 1;
+				else if(tracker.getY() != 0)
 				while(tempTracker != null) {
 					if(!(tempTracker.getCaller() == null))
 						heuristicGrid[tempTracker.getX()][tempTracker.getY()] = 4;
@@ -50,6 +54,7 @@ public class HeuristicFive {
 				GridNode temp = new GridNode(tracker.getX() + direction[0], tracker.getY() + direction[1]);
 				if(builtGrid.validNode(temp) && visited[temp.getX()][temp.getY()] != 4 && !(frontier.contains(temp))
 						&& visited[temp.getX()][temp.getY()] != 1) {
+					numNodesExpanded++;
 					temp = new GridNode(tracker.getX() + direction[0], tracker.getY() + direction[1], tracker);
 					if(direction[0] != 0)
 						temp.addToCost(1);
@@ -63,6 +68,14 @@ public class HeuristicFive {
 			
 		}
 		return null;
+	}
+	
+	public int getNumNodesExpanded() {
+		return numNodesExpanded;
+	}
+	
+	public int getTotalCost() {
+		return costOfPath;
 	}
 	
 	public void printGrid() {

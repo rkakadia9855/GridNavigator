@@ -2,7 +2,11 @@ import java.util.*;
 
 public class BFS {
 
-    public int[][] BFSPath(Grid maze){
+	private int[][] path;
+	private int cost;
+	private int nodesExpanded = 1;
+
+    public BFS(Grid maze){
 
 		int[][] bfsPath = new int[maze.getSize()][maze.getSize()];
         boolean[][] marked = new boolean[maze.getSize()][maze.getSize()];
@@ -32,39 +36,80 @@ public class BFS {
 			if(maze.validNode(left)){
 				if(!marked[left.getX()][left.getY()]){
 					marked[left.getX()][left.getY()] = true;
-                    if(bfsPath[left.getX()][left.getY()] != 1) frontier.add(left);
+                    if(bfsPath[left.getX()][left.getY()] != 1) {
+                    	frontier.add(left);
+                    	nodesExpanded++;
+                    }
 				}
 			}
             GridNode right = new GridNode(temp.getX() + 1, temp.getY(), temp);
 			if(maze.validNode(right)){
 				if(!marked[right.getX()][right.getY()]){
 					marked[right.getX()][right.getY()] = true;
-					if(bfsPath[right.getX()][right.getY()] != 1) frontier.add(right);
+					if(bfsPath[right.getX()][right.getY()] != 1) {
+						frontier.add(right);
+						nodesExpanded++;
+					}
 				}
 			}
             GridNode up = new GridNode(temp.getX(), temp.getY() - 1, temp);
             if(maze.validNode(up)){
 				if(!marked[up.getX()][up.getY()]){
 					marked[up.getX()][up.getY()] = true;
-					if(bfsPath[up.getX()][up.getY()] != 1) frontier.add(up);
+					if(bfsPath[up.getX()][up.getY()] != 1) {
+						frontier.add(up);
+						nodesExpanded++;
+					}
 				}
 			}
             GridNode down = new GridNode(temp.getX(), temp.getY() + 1, temp);
             if(maze.validNode(down)){
 				if(!marked[down.getX()][down.getY()]){
 					marked[down.getX()][down.getY()] = true;
-					if(bfsPath[down.getX()][down.getY()] != 1) frontier.add(down);
+					if(bfsPath[down.getX()][down.getY()] != 1) {
+						frontier.add(down);
+						nodesExpanded++;
+					}
 				}
 			}
 		}
-
-        finish =  finish.getCaller();
+		
+//		bfsPath[finish.getX()][finish.getY()] = 3;
+	if(finish != null)	
+        	finish =  finish.getCaller();
         while(finish != null){
+        	/*if(finish.getCaller() == null) {
+        //		bfsPath[finish.getX()][finish.getY()] = 2;
+        		this.cost += cost(finish);
+        		finish = finish.getCaller();
+        		continue;
+        	} */
             bfsPath[finish.getX()][finish.getY()] = 4;
+			this.cost += cost(finish);
             finish = finish.getCaller();
         }
 
 
-		return bfsPath;
+		this.path = bfsPath;
 	} 
+
+	private static int cost(GridNode node){
+		if(node.getCaller() == null)
+			return 0;
+        if(node.getCaller().getX() != node.getX()) return 2;
+        else if(node.getCaller().getY() != node.getY()) return 1;
+        else return 0;
+    }
+	
+	public int getNodesExpanded() {
+		return this.nodesExpanded;
+	}
+
+    public int getCost(){
+        return this.cost;
+    }
+
+    public int[][] getPath(){
+        return this.path;
+    }
 }

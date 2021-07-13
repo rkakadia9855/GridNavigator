@@ -2,7 +2,12 @@ import java.util.*;
 
 public class DFSLimit {
 
-    public int[][] DFSPath(Grid maze){
+    private int cost;
+    private int[][] path;
+    private int nodesExpanded = 1;
+
+
+    public DFSLimit(Grid maze){
 
 		int[][] dfsPath = new int[maze.getSize()][maze.getSize()];
         boolean[][] marked = new boolean[maze.getSize()][maze.getSize()];
@@ -43,6 +48,7 @@ public class DFSLimit {
                     if(dfsPath[left.getX()][left.getY()] != 1){
                         depth.push(currentDepth+1);
                         frontier.push(left);
+                        nodesExpanded++;
                     } 
 				}
 			}
@@ -53,6 +59,7 @@ public class DFSLimit {
 					if(dfsPath[right.getX()][right.getY()] != 1){
                         depth.push(currentDepth+1);
                         frontier.push(right);
+                        nodesExpanded++;
                     } 
 				}
 			}
@@ -63,6 +70,7 @@ public class DFSLimit {
 					if(dfsPath[up.getX()][up.getY()] != 1){
                         depth.push(currentDepth+1);
                         frontier.push(up);
+                        nodesExpanded++;
                     } 
 				}
 			}
@@ -73,25 +81,55 @@ public class DFSLimit {
 					if(dfsPath[down.getX()][down.getY()] != 1){
                         depth.push(currentDepth+1);
                         frontier.push(down);
+                        nodesExpanded++;
                     } 
 				}
 			}
 		}
 
-        finish =  finish.getCaller();
+	//	dfsPath[finish.getX()][finish.getY()] = 3;
+       if(finish != null)
+	       	finish =  finish.getCaller();
+        
         while(finish != null){
+        /*	if(finish.getCaller() == null) {
+        		dfsPath[finish.getX()][finish.getY()] = 2;
+        		this.cost += cost(finish);
+        		finish = finish.getCaller();
+        		continue;
+        	}*/
             dfsPath[finish.getX()][finish.getY()] = 4;
+            this.cost += cost(finish);
             finish = finish.getCaller();
         }
-
-
-		return dfsPath;
+		this.path = dfsPath;
 	} 
 
     public int MaxDepth(int size){
         //currently returning size^2 so the algorithm is guaranteed to be complete.
         //can change function for MaxDepth if neccessary 
         return size*size;
+    }
+
+    private static int cost(GridNode node){
+    	if(node.getCaller() == null)
+    		return 0;
+        if(node.getCaller().getX() != node.getX()) return 2;
+        else if(node.getCaller().getY() != node.getY()) return 1;
+        else return 0;
+    }
+
+    public int getCost(){
+        return this.cost;
+    }
+    
+	public int getNodesExpanded() {
+		return this.nodesExpanded;
+	}
+
+
+    public int[][] getPath(){
+        return this.path;
     }
 
 }

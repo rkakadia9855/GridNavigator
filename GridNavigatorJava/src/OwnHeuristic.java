@@ -1,30 +1,30 @@
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class ManhattanHeuristic {
+public class OwnHeuristic {
 	//All possible directions the agent can move
 	private static final int[][] DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
-	int[][] manhattanGrid;
+	int[][] ownGrid;
 	int[][] visited;
 	Grid builtGrid;
-	int costOfPath = 0;
-	int numNodesExpanded = 1;
+	private int costOfPath = 0;
+	private int numNodesExpanded = 1;
 	
-	public ManhattanHeuristic(Grid builtGrid) {
+	public OwnHeuristic(Grid builtGrid) {
 		this.builtGrid = builtGrid;
-		manhattanGrid = new int[builtGrid.getGrid().length][builtGrid.getGrid().length];
+		ownGrid = new int[builtGrid.getGrid().length][builtGrid.getGrid().length];
 		visited = new int[builtGrid.getGrid().length][builtGrid.getGrid().length];
 		for(int i = 0; i < builtGrid.getGrid().length; i++) {
 			for(int j = 0; j < builtGrid.getGrid().length; j++) {
-				manhattanGrid[i][j] = builtGrid.getGrid()[i][j];
+				ownGrid[i][j] = builtGrid.getGrid()[i][j];
 				visited[i][j] = builtGrid.getGrid()[i][j];
 			}
 		}
 	}
 	
 	public int[][] solveMaze() {
-		Comparator<GridNode> manhattanComparator = new ManhattanComparator(builtGrid.getGoal());
-		PriorityQueue<GridNode> frontier = new PriorityQueue<GridNode>(10, manhattanComparator);
+		Comparator<GridNode> ownComparator = new OwnComparator(builtGrid.getGoal());
+		PriorityQueue<GridNode> frontier = new PriorityQueue<GridNode>(10, ownComparator);
 		GridNode start = builtGrid.getStart();
 		frontier.add(start);
 		
@@ -35,19 +35,20 @@ public class ManhattanHeuristic {
 					|| visited[tracker.getX()][tracker.getY()] == 1)
 				continue;
 			
-			if(manhattanGrid[tracker.getX()][tracker.getY()] == 3) {
+			if(ownGrid[tracker.getX()][tracker.getY()] == 3) {
 				GridNode tempTracker = tracker.getCaller();
 				this.costOfPath = tempTracker.getCost();
 				if(tracker.getX() != 0)
 					this.costOfPath += 1;
 				else if(tracker.getY() != 0)
+					this.costOfPath += 2;
 				while(tempTracker != null) {
 					if(!(tempTracker.getCaller() == null))
-						manhattanGrid[tempTracker.getX()][tempTracker.getY()] = 4;
+						ownGrid[tempTracker.getX()][tempTracker.getY()] = 4;
 					tempTracker = tempTracker.getCaller();
 					
 				} 
-				return manhattanGrid;
+				return ownGrid;
 			}
 			visited[tracker.getX()][tracker.getY()] = 4;
 			for (int[] direction : DIRECTIONS) {
@@ -70,18 +71,18 @@ public class ManhattanHeuristic {
 		return null;
 	}
 	
-	public int getNumNodesExpanded() {
-		return numNodesExpanded;
-	}
-	
 	public int getTotalCost() {
 		return costOfPath;
 	}
 	
+	public int getNumNodesExpanded() {
+		return numNodesExpanded;
+	}
+	
 	public void printGrid() {
-		for(int i = 0; i < manhattanGrid.length; i++) {
-			for(int j = 0; j < manhattanGrid.length; j++) {
-				System.out.print(manhattanGrid[i][j] + " ");
+		for(int i = 0; i < ownGrid.length; i++) {
+			for(int j = 0; j < ownGrid.length; j++) {
+				System.out.print(ownGrid[i][j] + " ");
 			}
 			System.out.println();
 		}
