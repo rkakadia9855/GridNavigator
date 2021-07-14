@@ -197,10 +197,9 @@ public class GridDriver {
 				while(!reply.contains("quit")) {
 					System.out.println("Enter grid number from (10-59) inclusive. Be sure to enter number to prevent crash");
 					int displayGridNumber = furtherScan.nextInt();
-					if(displayGridNumber < 9 || displayGridNumber > 59) {
+					if(displayGridNumber < 10 || displayGridNumber > 59) {
 						System.out.println("You didn't provide correct grid number. Exiting Program.");
-						furtherScan.close();
-						return;
+						continue;
 					}
 					System.out.println("Enter algorithm index for which you would like to print the grid: (0-4)");
 					System.out.println("0 - BFS");
@@ -227,8 +226,7 @@ public class GridDriver {
 						break;
 					default:
 						System.out.println("You didn't provide correct algorithm number. Exiting Program.");
-						furtherScan.close();
-						return;
+						continue;
 					}
 					System.out.println("Print another grid? If not, type \"quit\"");
 					reply = furtherScan.next();

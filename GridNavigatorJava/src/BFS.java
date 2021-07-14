@@ -80,7 +80,7 @@ public class BFS {
 			finish =  finish.getCaller();
 		}
 		else
-			System.out.println("No path found");
+			System.out.println("No path found by BFS");
 
         while(finish != null){
         	if(finish.getCaller() == null) {

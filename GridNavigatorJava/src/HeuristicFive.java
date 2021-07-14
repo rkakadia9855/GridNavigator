@@ -68,7 +68,7 @@ public class HeuristicFive {
 			}
 			
 		}
-		System.out.println("No path found");
+		System.out.println("No path found by A* with MAX(euclidean, manhattan) heuristic");
 		return null;
 	}
 	
