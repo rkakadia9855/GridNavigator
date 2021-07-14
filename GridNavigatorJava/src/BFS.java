@@ -79,6 +79,8 @@ public class BFS {
 			this.cost += cost(finish);
 			finish =  finish.getCaller();
 		}
+		else
+			System.out.println("No path found");
 
         while(finish != null){
         	if(finish.getCaller() == null) {

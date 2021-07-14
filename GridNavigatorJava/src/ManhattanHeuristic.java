@@ -68,6 +68,7 @@ public class ManhattanHeuristic {
 			}
 			
 		}
+		System.out.println("No path found");
 		return null;
 	}
 	

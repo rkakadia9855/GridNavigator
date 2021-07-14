@@ -121,9 +121,7 @@ public class GridDriver {
 						new int[] {positions.get(goalIndex).get(0), positions.get(goalIndex).get(1)});
 				ManhattanHeuristic manhattan = new ManhattanHeuristic(algoGrid);
 				startTime = System.nanoTime();
-				if(i < 15)
-					Grid.drawPath(manhattan.solveMaze());
-				//manhattanPaths.add(manhattan.solveMaze());
+				manhattanPaths.add(manhattan.solveMaze());
 				endTime = System.nanoTime();
 				manhattanTime += (endTime - startTime);
 				manhattanNodes += manhattan.getNumNodesExpanded();

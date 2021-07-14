@@ -68,6 +68,7 @@ public class OwnHeuristic {
 			}
 			
 		}
+		System.out.println("No path found");
 		return null;
 	}
 	

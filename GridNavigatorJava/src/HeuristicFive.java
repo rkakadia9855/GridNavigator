@@ -68,6 +68,7 @@ public class HeuristicFive {
 			}
 			
 		}
+		System.out.println("No path found");
 		return null;
 	}
 	
