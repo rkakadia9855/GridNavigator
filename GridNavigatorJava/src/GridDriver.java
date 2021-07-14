@@ -179,6 +179,63 @@ public class GridDriver {
 			System.out.println("Average nodes expanded: "+(ownNodes/50));
 			System.out.println("Average cost of finding path: "+(ownCost/50));
 			System.out.println("Average execution time: "+(ownTime/50)+" nano seconds.");
+			
+			System.out.println();
+			if(bfsPaths.size() != 50)
+				System.out.println("BFSPATHS size: "+bfsPaths.size());
+			if(dfsPaths.size() != 50)
+				System.out.println("DFSPATHS size: "+dfsPaths.size());
+			if(manhattanPaths.size() != 50)
+				System.out.println("Manhattan Paths size: "+manhattanPaths.size());
+			if(fivePaths.size() != 50)
+				System.out.println("Five paths size: "+fivePaths.size());
+			if(ownPaths.size() != 50)
+				System.out.println("own paths size: "+ownPaths.size());
+			furtherScan = new Scanner(System.in);
+			System.out.println("Would you like to print any of the solved grids from above?");
+			reply = furtherScan.next();
+			if(reply.contains("yes")) {
+				while(!reply.contains("quit")) {
+					System.out.println("Enter grid number from (10-50) inclusive. Be sure to enter number to prevent crash");
+					int displayGridNumber = furtherScan.nextInt();
+					if(displayGridNumber < 9 || displayGridNumber > 50) {
+						System.out.println("You didn't provide correct grid number. Exiting Program.");
+						furtherScan.close();
+						return;
+					}
+					System.out.println("Enter algorithm index for which you would like to print the grid: (0-4)");
+					System.out.println("0 - BFS");
+					System.out.println("1 - DFS Depth Limited");
+					System.out.println("2 - A* with manhattan heuristic");
+					System.out.println("3 - A* with max(euclidean, manhattan) heuristic");
+					System.out.println("4 - A* with AVG(euclidean, manhattan) heuristic");
+					int displayAlgoIndex = furtherScan.nextInt();
+					switch(displayAlgoIndex) {
+					case 0:
+						Grid.drawPath(bfsPaths.get(displayGridNumber-10));
+						break;
+					case 1:
+						Grid.drawPath(dfsPaths.get(displayGridNumber-10));
+						break;
+					case 2:
+						Grid.drawPath(manhattanPaths.get(displayGridNumber-10));
+						break;
+					case 3:
+						Grid.drawPath(fivePaths.get(displayGridNumber-10));
+						break;
+					case 4:
+						Grid.drawPath(ownPaths.get(displayGridNumber-10));
+						break;
+					default:
+						System.out.println("You didn't provide correct algorithm number. Exiting Program.");
+						furtherScan.close();
+						return;
+					}
+					System.out.println("Print another grid? If not, type \"quit\"");
+					reply = furtherScan.next();
+				}
+			}
+			
 		}
 	}
 	
