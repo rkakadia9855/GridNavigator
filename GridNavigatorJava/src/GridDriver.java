@@ -66,13 +66,19 @@ public class GridDriver {
 			
 			long startTime = 0;
 			long endTime = 0;
-			
-			//Maybe first find start and goal positions for all grids
+
 			ArrayList<int[][]> bfsPaths = new ArrayList<int[][]>();
 			ArrayList<int[][]> dfsPaths = new ArrayList<int[][]>();
 			ArrayList<int[][]> manhattanPaths = new ArrayList<int[][]>();
 			ArrayList<int[][]> fivePaths = new ArrayList<int[][]>();
 			ArrayList<int[][]> ownPaths = new ArrayList<int[][]>();
+			
+			ArrayList<Integer> bfsCosts = new ArrayList<Integer>();
+			ArrayList<Integer> dfsCosts = new ArrayList<Integer>();
+			ArrayList<Integer> manhattanCosts = new ArrayList<Integer>();
+			ArrayList<Integer> fiveCosts = new ArrayList<Integer>();
+			ArrayList<Integer> ownCosts = new ArrayList<Integer>();
+			
 			ArrayList<ArrayList<Integer>> positions = null;
 			for(int i = 10; i < 60; i++) {
 				System.out.println("Iteration number "+(i-9));
@@ -100,6 +106,7 @@ public class GridDriver {
 				endTime = System.nanoTime();
 				bfsTime += (endTime - startTime);
 				bfsNodes += bfs.getNodesExpanded();
+				bfsCosts.add(bfs.getCost());
 				bfsCost += bfs.getCost();
 				bfsPaths.add(bfs.getPath());
 				
@@ -112,6 +119,7 @@ public class GridDriver {
 				endTime = System.nanoTime();
 				dfsTime += (endTime - startTime);
 				dfsNodes += dfs.getNodesExpanded();
+				dfsCosts.add(dfs.getCost());
 				dfsCost += dfs.getCost();
 				dfsPaths.add(dfs.getPath());
 				
@@ -125,6 +133,7 @@ public class GridDriver {
 				endTime = System.nanoTime();
 				manhattanTime += (endTime - startTime);
 				manhattanNodes += manhattan.getNumNodesExpanded();
+				manhattanCosts.add(manhattan.getTotalCost());
 				manhattanCost += manhattan.getTotalCost();
 				
 				//Max heuristic
@@ -136,6 +145,7 @@ public class GridDriver {
 				endTime = System.nanoTime();
 				fiveTime += (endTime - startTime);
 				fiveNodes += heurFive.getNumNodesExpanded();
+				fiveCosts.add(heurFive.getTotalCost());
 				fiveCost += heurFive.getTotalCost();
 				
 				//Average Heuristic
@@ -147,6 +157,7 @@ public class GridDriver {
 				endTime = System.nanoTime();
 				ownTime += (endTime - startTime);
 				ownNodes += ownHeur.getNumNodesExpanded();
+				ownCosts.add(ownHeur.getTotalCost());
 				ownCost += ownHeur.getTotalCost();
 			}
 			System.out.println("_____________________");
@@ -211,24 +222,29 @@ public class GridDriver {
 					switch(displayAlgoIndex) {
 					case 0:
 						Grid.drawPath(bfsPaths.get(displayGridNumber-10));
+						System.out.println("Total Cost: "+bfsCosts.get(displayGridNumber - 10));
 						break;
 					case 1:
 						Grid.drawPath(dfsPaths.get(displayGridNumber-10));
+						System.out.println("Total Cost: "+dfsCosts.get(displayGridNumber - 10));
 						break;
 					case 2:
 						Grid.drawPath(manhattanPaths.get(displayGridNumber-10));
+						System.out.println("Total Cost: "+manhattanCosts.get(displayGridNumber - 10));
 						break;
 					case 3:
 						Grid.drawPath(fivePaths.get(displayGridNumber-10));
+						System.out.println("Total Cost: "+fiveCosts.get(displayGridNumber - 10));
 						break;
 					case 4:
 						Grid.drawPath(ownPaths.get(displayGridNumber-10));
+						System.out.println("Total Cost: "+ownCosts.get(displayGridNumber - 10));
 						break;
 					default:
 						System.out.println("You didn't provide correct algorithm number. Exiting Program.");
 						continue;
 					}
-					System.out.println("Print another grid? If not, type \"quit\"");
+					System.out.println("Type \"quit\" to exit the program, or press enter to continue");
 					reply = furtherScan.next();
 				}
 			}
