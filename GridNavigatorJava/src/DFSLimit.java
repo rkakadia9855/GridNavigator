@@ -87,27 +87,27 @@ public class DFSLimit {
 			}
 		}
 
-	//	dfsPath[finish.getX()][finish.getY()] = 3;
-       if(finish != null)
-	       	finish =  finish.getCaller();
-        
+        if(finish != null){
+			this.cost += cost(finish);
+			finish =  finish.getCaller();
+		}
+		
         while(finish != null){
-        /*	if(finish.getCaller() == null) {
+        	if(finish.getCaller() == null) {
         		dfsPath[finish.getX()][finish.getY()] = 2;
-        		this.cost += cost(finish);
-        		finish = finish.getCaller();
-        		continue;
-        	}*/
+        		break;
+        	} 
             dfsPath[finish.getX()][finish.getY()] = 4;
-            this.cost += cost(finish);
+			this.cost += cost(finish);
             finish = finish.getCaller();
         }
+
+        dfsPath[maze.getStart().getX()][maze.getStart().getY()] = 2;
+        dfsPath[maze.getGoal().getX()][maze.getGoal().getY()] = 3;
 		this.path = dfsPath;
 	} 
 
     public int MaxDepth(int size){
-        //currently returning size^2 so the algorithm is guaranteed to be complete.
-        //can change function for MaxDepth if neccessary 
         return size*size;
     }
 

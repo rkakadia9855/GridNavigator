@@ -74,22 +74,24 @@ public class BFS {
 			}
 		}
 		
-//		bfsPath[finish.getX()][finish.getY()] = 3;
-	if(finish != null)	
-        	finish =  finish.getCaller();
+
+		if(finish != null){
+			this.cost += cost(finish);
+			finish =  finish.getCaller();
+		}
+
         while(finish != null){
-        	/*if(finish.getCaller() == null) {
-        //		bfsPath[finish.getX()][finish.getY()] = 2;
-        		this.cost += cost(finish);
-        		finish = finish.getCaller();
-        		continue;
-        	} */
+        	if(finish.getCaller() == null) {
+        		bfsPath[finish.getX()][finish.getY()] = 2;
+        		break;
+        	} 
             bfsPath[finish.getX()][finish.getY()] = 4;
 			this.cost += cost(finish);
             finish = finish.getCaller();
         }
 
-
+		bfsPath[maze.getStart().getX()][maze.getStart().getY()] = 2;
+        bfsPath[maze.getGoal().getX()][maze.getGoal().getY()] = 3;
 		this.path = bfsPath;
 	} 
 
