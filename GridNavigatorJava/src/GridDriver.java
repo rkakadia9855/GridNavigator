@@ -29,10 +29,10 @@ public class GridDriver {
 		System.out.println("Parsing of problem.txt completed.");
 		System.out.println("Maze size: "+mazeSize);
 		System.out.println("Algorith to use: "+ algoIndex);
-	//	File gridFile = new File("resources/mazes/"+gridFileName);
-	//	navigateGrid(gridFile, mazeSize, start, goal, algoIndex);
-		File gridFile = new File("resources/example_9x9.txt");
-		navigateGrid(gridFile, 9, new int[] {1, 0}, new int[] {8,7}, 0);
+		File gridFile = new File("resources/mazes/"+gridFileName);
+		navigateGrid(gridFile, mazeSize, start, goal, algoIndex);
+//		File gridFile = new File("resources/example_9x9.txt");
+//		navigateGrid(gridFile, 9, new int[] {1, 0}, new int[] {8,7}, 0);
 		
 		//Now time to run all the algorithms in 50 different environments
 		
