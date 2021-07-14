@@ -191,16 +191,16 @@ public class GridDriver {
 				System.out.println("Five paths size: "+fivePaths.size());
 			if(ownPaths.size() != 50)
 				System.out.println("own paths size: "+ownPaths.size());
-			furtherScan = new Scanner(System.in);
 			System.out.println("Would you like to print any of the solved grids from above?");
-			reply = furtherScan.next();
+			Scanner newScanner = new Scanner(System.in);
+			reply = newScanner.next();
 			if(reply.contains("yes")) {
 				while(!reply.contains("quit")) {
-					System.out.println("Enter grid number from (10-50) inclusive. Be sure to enter number to prevent crash");
-					int displayGridNumber = furtherScan.nextInt();
-					if(displayGridNumber < 9 || displayGridNumber > 50) {
+					System.out.println("Enter grid number from (10-60) inclusive. Be sure to enter number to prevent crash");
+					int displayGridNumber = newScanner.nextInt();
+					if(displayGridNumber < 9 || displayGridNumber > 60) {
 						System.out.println("You didn't provide correct grid number. Exiting Program.");
-						furtherScan.close();
+						newScanner.close();
 						return;
 					}
 					System.out.println("Enter algorithm index for which you would like to print the grid: (0-4)");
@@ -209,7 +209,7 @@ public class GridDriver {
 					System.out.println("2 - A* with manhattan heuristic");
 					System.out.println("3 - A* with max(euclidean, manhattan) heuristic");
 					System.out.println("4 - A* with AVG(euclidean, manhattan) heuristic");
-					int displayAlgoIndex = furtherScan.nextInt();
+					int displayAlgoIndex = newScanner.nextInt();
 					switch(displayAlgoIndex) {
 					case 0:
 						Grid.drawPath(bfsPaths.get(displayGridNumber-10));
@@ -228,13 +228,14 @@ public class GridDriver {
 						break;
 					default:
 						System.out.println("You didn't provide correct algorithm number. Exiting Program.");
-						furtherScan.close();
+						newScanner.close();
 						return;
 					}
 					System.out.println("Print another grid? If not, type \"quit\"");
-					reply = furtherScan.next();
+					reply = newScanner.next();
 				}
 			}
+			newScanner.close();
 			
 		}
 	}
