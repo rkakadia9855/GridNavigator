@@ -69,7 +69,7 @@ public class ManhattanHeuristic {
 			
 		}
 		System.out.println("No path found by A* with manhattan heuristic");
-		return null;
+		return builtGrid.getGrid();
 	}
 	
 	public int getNumNodesExpanded() {

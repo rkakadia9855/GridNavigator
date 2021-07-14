@@ -69,7 +69,7 @@ public class OwnHeuristic {
 			
 		}
 		System.out.println("No path found with A* with AVG(euclidean, manhattan) heuristic");
-		return null;
+		return builtGrid.getGrid();
 	}
 	
 	public int getTotalCost() {
