@@ -62,8 +62,8 @@ public class Grid {
 			start = new GridNode(0, 0);
 		if(goal.getX() == -1)
 			goal = new GridNode(0,0);
-		grid[start.getY()][start.getX()] = 2;
-		grid[goal.getY()][goal.getX()] = 3;
+		grid[start.getX()][start.getY()] = 2;
+ 		grid[goal.getX()][goal.getY()] = 3;
 	}
 	
 	public boolean validNode(GridNode aNode) {
