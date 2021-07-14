@@ -108,7 +108,7 @@ public class GridDriver {
 				algoGrid = new Grid(gridFile, 101, new int[] {positions.get(startIndex).get(0), positions.get(startIndex).get(1)},
 						new int[] {positions.get(goalIndex).get(0), positions.get(goalIndex).get(1)});
 				startTime = System.nanoTime();
-				BFS dfs = new BFS(algoGrid);
+				DFSLimit dfs = new DFSLimit(algoGrid);
 				endTime = System.nanoTime();
 				dfsTime += (endTime - startTime);
 				dfsNodes += dfs.getNodesExpanded();
