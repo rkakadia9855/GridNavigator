@@ -244,7 +244,7 @@ public class GridDriver {
 						System.out.println("You didn't provide correct algorithm number. Exiting Program.");
 						continue;
 					}
-					System.out.println("Type \"quit\" to exit the program, or press enter to continue");
+					System.out.println("Type \"quit\" to exit the program, or type yes to continue");
 					reply = furtherScan.next();
 				}
 			}
