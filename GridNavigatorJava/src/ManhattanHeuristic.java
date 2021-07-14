@@ -41,6 +41,7 @@ public class ManhattanHeuristic {
 				if(tracker.getX() != 0)
 					this.costOfPath += 1;
 				else if(tracker.getY() != 0)
+					this.costOfPath += 2;
 				while(tempTracker != null) {
 					if(!(tempTracker.getCaller() == null))
 						manhattanGrid[tempTracker.getX()][tempTracker.getY()] = 4;
