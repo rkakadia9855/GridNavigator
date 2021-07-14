@@ -69,6 +69,11 @@ public class GridDriver {
 			long endTime = 0;
 			
 			//Maybe first find start and goal positions for all grids
+			ArrayList<int[][]> bfsPaths = new ArrayList<int[][]>();
+			ArrayList<int[][]> dfsPaths = new ArrayList<int[][]>();
+			ArrayList<int[][]> manhattanPaths = new ArrayList<int[][]>();
+			ArrayList<int[][]> fivePaths = new ArrayList<int[][]>();
+			ArrayList<int[][]> ownPaths = new ArrayList<int[][]>();
 			ArrayList<ArrayList<Integer>> positions = null;
 			for(int i = 10; i < 60; i++) {
 				System.out.println("Iteration number "+(i-9));
@@ -83,6 +88,11 @@ public class GridDriver {
 				while(goalIndex == startIndex)
 					goalIndex = random.nextInt(positions.size());
 				
+				System.out.println("Grid: maze_"+gridNumber+".txt");
+				System.out.print("Start: ("+positions.get(startIndex).get(0)+", "+positions.get(startIndex).get(1)+") ");
+				System.out.println("Goal: ("+positions.get(goalIndex).get(0)+", "+positions.get(goalIndex).get(1)+") ");
+				
+				
 				//Run BFS
 				Grid algoGrid = new Grid(gridFile, 101, new int[] {positions.get(startIndex).get(0), positions.get(startIndex).get(1)},
 						new int[] {positions.get(goalIndex).get(0), positions.get(goalIndex).get(1)});
@@ -92,6 +102,8 @@ public class GridDriver {
 				bfsTime += (endTime - startTime);
 				bfsNodes += bfs.getNodesExpanded();
 				bfsCost += bfs.getCost();
+				bfsPaths.add(bfs.getPath());
+				
 				
 				//Run DFSLimit
 				algoGrid = new Grid(gridFile, 101, new int[] {positions.get(startIndex).get(0), positions.get(startIndex).get(1)},
@@ -102,6 +114,7 @@ public class GridDriver {
 				dfsTime += (endTime - startTime);
 				dfsNodes += dfs.getNodesExpanded();
 				dfsCost += dfs.getCost();
+				dfsPaths.add(dfs.getPath());
 				
 				
 				//Manhattan
@@ -109,7 +122,7 @@ public class GridDriver {
 						new int[] {positions.get(goalIndex).get(0), positions.get(goalIndex).get(1)});
 				ManhattanHeuristic manhattan = new ManhattanHeuristic(algoGrid);
 				startTime = System.nanoTime();
-				manhattan.solveMaze();
+				manhattanPaths.add(manhattan.solveMaze());
 				endTime = System.nanoTime();
 				manhattanTime += (endTime - startTime);
 				manhattanNodes += manhattan.getNumNodesExpanded();
@@ -120,7 +133,7 @@ public class GridDriver {
 						new int[] {positions.get(goalIndex).get(0), positions.get(goalIndex).get(1)});
 				HeuristicFive heurFive = new HeuristicFive(algoGrid);
 				startTime = System.nanoTime();
-				heurFive.solveMaze();
+				fivePaths.add(heurFive.solveMaze());
 				endTime = System.nanoTime();
 				fiveTime += (endTime - startTime);
 				fiveNodes += heurFive.getNumNodesExpanded();
@@ -131,7 +144,7 @@ public class GridDriver {
 						new int[] {positions.get(goalIndex).get(0), positions.get(goalIndex).get(1)});
 				OwnHeuristic ownHeur = new OwnHeuristic(algoGrid);
 				startTime = System.nanoTime();
-				ownHeur.solveMaze();
+				ownPaths.add(ownHeur.solveMaze());
 				endTime = System.nanoTime();
 				ownTime += (endTime - startTime);
 				ownNodes += ownHeur.getNumNodesExpanded();
